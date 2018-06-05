@@ -1,0 +1,43 @@
+{
+  "settings" : {
+    "number_of_shards" : 1
+  },
+  "mappings": {
+    "course": {
+      "dynamic": false,
+      "properties": {
+        "id": {
+          "type": "keyword"
+        },
+        "position": {
+          "index": "false",
+          "type": "short"
+        },
+        "link": {
+          "index": "false",
+          "type": "text"
+        },
+        "title": {
+          "type": "text"
+        },
+        "duration": {
+          "type": "text",
+          "index": "false"
+        },
+        "effort": {
+          "type": "text",
+          "index": "false"
+        },
+        "completed": {
+          "type": "boolean"
+        },
+        "completed_on": {
+          "type": "date"
+        },
+        "difficulty": {
+          "type": "short"
+        }
+      }
+    }
+  }
+}

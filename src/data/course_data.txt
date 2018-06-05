@@ -1,0 +1,37 @@
+1|Introduction to Computer Science - CS50|12 weeks|10-20 hours/week|https://www.edx.org/course/introduction-computer-science-harvardx-cs50x#!
+2|Effective Thinking Through Mathematics|9 weeks|5 hours/week|https://www.edx.org/course/effective-thinking-through-mathematics-utaustinx-ut-9-01x
+3|How Systematic Program Design - Part 1|5 weeks|8-12 hours/week|https://www.edx.org/course/how-code-systematic-program-design-part-ubcx-spd1x
+4|How Systematic Program Design - Part 2|5 weeks|8-12 hours/week|https://www.edx.org/course/how-code-systematic-program-design-part-ubcx-spd2x
+5|How Systematic Program Design - Part 3|5 weeks|8-12 hours/week|https://www.edx.org/course/how-code-systematic-program-design-part-ubcx-spd3x
+6|Mathematics for Computer Science|12 weeks|5 hours/week|http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-042j-mathematics-for-computer-science-fall-2010/index.htm
+7|Algorithms, Part I|6 weeks|6-12 hours/week|https://www.coursera.org/course/algs4partI
+8|Algorithms, Part II|6 weeks|6-12 hours/week|https://www.coursera.org/course/algs4partII
+9|Functional Programming Principles in Scala|7 weeks|5-7 hours/week|https://www.coursera.org/course/progfun
+10|Object Oriented Programming in Java|6 weeks|4-6 hours/week|https://www.coursera.org/learn/object-oriented-java
+11|Software Testing|4 weeks|6 hours/week|https://www.udacity.com/course/software-testing--cs258
+12|Software Debugging|8 weeks|6 hours/week|https://www.udacity.com/course/software-debugging--cs259
+13|Calculus One|16 weeks|8-10 hours/week|https://www.coursera.org/learn/calculus1
+14|Sequences and Series|7 weeks|9-10 hours/week|https://www.coursera.org/learn/advanced-calculus
+15|Software Architecture & Design|8 weeks|6 hours/week|https://www.udacity.com/course/software-architecture-design--ud821
+16|Automata|6 weeks|8-10 hours/week|https://www.coursera.org/course/automata
+17|Software Processes and Agile Practices|4 weeks|6-8 hours/week|https://www.coursera.org/learn/software-processes-and-agile-practices
+18|Introduction to Probability - The Science of Uncertainty|16 weeks|12 hours/week|https://www.edx.org/course/introduction-probability-science-mitx-6-041x-0
+19|Computer Architecture || 5-8 hours/week|https://www.coursera.org/course/comparch
+20|Operating Systems and System Programming|10 weeks|2-3 hours/week|https://www.youtube.com/view_play_list?p=-XXv-cvA_iBDyz-ba4yDskqMDY6A1w_c
+21|Computer Networks || 4–12 hours/week|https://www.coursera.org/course/comnetworks
+22|Databases 12 weeks || 8-12 hours/week|https://lagunita.stanford.edu/courses/DB/2014/SelfPaced/about
+23|Introduction to Cloud Computing|4 weeks|1 hour/week|https://www.edx.org/course/introduction-cloud-computing-ieeex-cloudintro-x-0
+24|Coding Linear Algebra through Computer Science Applications|10 weeks|7-10 hours/week|https://www.coursera.org/course/matrix
+25|Cryptography I|6 weeks|5-7 hours/week|https://www.coursera.org/course/crypto
+26|Cryptography II|6 weeks|6-8 hours/week|https://www.coursera.org/course/crypto2
+27|Introduction to Cyber Security|8 weeks|3 hours/week|https://www.futurelearn.com/courses/introduction-to-cyber-security
+28|Compilers|9 weeks|6-8 hours/week|https://www.coursera.org/course/compilers
+29|Heterogeneous Parallel Programming|11 weeks|8-10 hours/week|https://www.coursera.org/course/hetero
+30|UX Design for Mobile Developers|6 weeks|6 hours/week|https://www.udacity.com/course/ux-design-for-mobile-developers--ud849
+31|Computer Graphics|6 weeks|12 hours/week|https://www.edx.org/course/computer-graphics-uc-san-diegox-cse167x
+32|Artificial Intelligence|12 weeks|15 hours/week|https://www.edx.org/course/artificial-intelligence-uc-berkeleyx-cs188-1x#!
+33|Machine Learning|11 weeks|4-6 hours/week|https://www.coursera.org/learn/machine-learning
+34|Natural Language Processing|10 weeks|8-10 hours/week|https://www.coursera.org/course/nlangp
+35|Introduction to Big Data|3 weeks|5-6 hours/week|https://www.coursera.org/learn/intro-to-big-data
+36|Pattern Discovery in Data Mining|4 weeks|4-6 hours/week|https://www.coursera.org/course/patterndiscovery
+37|The Internet of Things|4 weeks|2 hours/week|https://www.futurelearn.com/courses/internet-of-things

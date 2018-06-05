@@ -1,0 +1,45 @@
+.modal__wrapper {
+  z-index: 1;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: hsla(0, 100%, 100%, 0.9);
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal_display {
+  background: white;
+  z-index: 2;
+  padding: 30px;
+  border: 1px solid gray;
+  border-radius: 5px;
+}
+
+.difficulty {
+  border: 1px solid gray;
+  border-right: none;
+  width: 20%;
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.difficulty:last-of-type {
+  border-right: 1px solid gray;
+}
+
+.active {
+  background: #1E90FF;
+}
+
+
+.difficulty__wrapper {
+  width: 100%;
+  display: flex;
+  margin-bottom: 10px;
+}

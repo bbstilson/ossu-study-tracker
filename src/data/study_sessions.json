@@ -1,0 +1,30 @@
+{
+  "settings" : {
+    "number_of_shards" : 1
+  },
+  "mappings": {
+    "study_session": {
+      "dynamic": false,
+      "properties": {
+        "id": {
+          "type": "keyword"
+        },
+        "time_start": {
+          "type": "date"
+        },
+        "time_end": {
+          "type": "date"
+        },
+        "session_complete": {
+          "type": "boolean"
+        },
+        "difficulty": {
+          "type": "short"
+        },
+        "course_id": {
+          "type": "keyword"
+        }
+      }
+    }
+  }
+}
