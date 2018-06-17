@@ -9,3 +9,18 @@ It looks like this:
 ![Screenshot number 1](./screenshot1.png)
 
 Hit me up if you ever want to run this locally.
+
+
+For future me:
+
+Open a terminal window, and run:
+
+```
+./bin/start-es.sh
+```
+
+When ES is up and running, open another window and start the app server:
+
+```
+yarn start
+```
