@@ -60,14 +60,12 @@ export function endStudySession(session, time_end, difficulty = 1) {
   return axios.post(`${ES_HOST}/study_sessions/study_session/${session.id}/_update`, update_request);
 }
 
-
 export function getCourses(query) {
   return axios.post(`${ES_HOST}/courses/_search`, query)
     .then(getHits);
 }
 
 export function setCourseCompleted(course, difficulty = 1) {
-  console.log('Completing course: ', course.id)
   const update_request = {
     doc: {
       difficulty,
@@ -77,4 +75,9 @@ export function setCourseCompleted(course, difficulty = 1) {
   };
 
   return axios.post(`${ES_HOST}/courses/course/${course.id}/_update`, update_request);
+}
+
+
+export function addCourse(courseData) {
+  return axios.post(`${ES_HOST}/courses/course/`, courseData);
 }

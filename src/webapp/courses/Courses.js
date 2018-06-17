@@ -31,9 +31,9 @@ function isFiltered(filterType) {
   return (course) => {
     switch (filterType) {
       case FilterType.COMPLETED:
-        return course.complete;
+        return course.completed;
       case FilterType.UNCOMPLETED:
-        return !course.complete;
+        return !course.completed;
       default:
         return true;
     }
@@ -189,6 +189,7 @@ export default class Courses extends PureComponent {
               }
             </tbody>
           </table>
+          <p>When you're done with all these, that's amazing, but this is just the core stuff. Go <a href="https://github.com/ossu/computer-science/blob/dev/README.md#advanced-cs">here</a> and follow the instructions to do the advanced stuff.</p>
         </CollapsibleContainer>
       </div>
     );

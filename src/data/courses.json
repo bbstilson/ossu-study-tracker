@@ -21,18 +21,22 @@
           "type": "text"
         },
         "duration": {
-          "type": "text",
-          "index": "false"
+          "type": "text"
         },
         "effort": {
-          "type": "text",
-          "index": "false"
+          "type": "text"
         },
         "completed": {
           "type": "boolean"
         },
         "completed_on": {
           "type": "date"
+        },
+        "section": {
+          "type": "keyword"
+        },
+        "prerequisites": {
+          "type": "text"
         },
         "difficulty": {
           "type": "short"

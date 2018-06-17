@@ -1,6 +1,7 @@
 import ActiveStudySessions from './study_sessions/ActiveStudySessions';
 import StudySessions from './study_sessions/StudySessions';
 import Courses from './courses/Courses';
+import NewCourse from './courses/NewCourse';
 
 import React, { PureComponent } from 'react';
 
@@ -13,6 +14,7 @@ class App extends PureComponent {
         <ActiveStudySessions />
         <Courses />
         <StudySessions />
+        <NewCourse />
       </div>
     );
   }
