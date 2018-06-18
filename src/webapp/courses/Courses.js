@@ -46,6 +46,12 @@ function matchesInput(input) {
   }
 }
 
+function Note() {
+  return (
+    <p>When you're done with all these, that's amazing, but this is just the core stuff. Go <a target="blank" href="https://github.com/ossu/computer-science/blob/dev/README.md#advanced-cs">here</a> and follow the instructions to do the advanced stuff.</p>
+  );
+}
+
 export default class Courses extends PureComponent {
   state = {
     courses: [],
@@ -164,7 +170,7 @@ export default class Courses extends PureComponent {
                 .map((course) => (
                   <tr key={course.id}>
                     <td>{course.title}</td>
-                    <td><a href={course.link}>Course Link</a></td>
+                    <td><a href={course.link} target="blank">Course Link</a></td>
                     <td>{course.duration}</td>
                     <td>{course.effort}</td>
                     <td>
@@ -189,7 +195,7 @@ export default class Courses extends PureComponent {
               }
             </tbody>
           </table>
-          <p>When you're done with all these, that's amazing, but this is just the core stuff. Go <a href="https://github.com/ossu/computer-science/blob/dev/README.md#advanced-cs">here</a> and follow the instructions to do the advanced stuff.</p>
+          <Note />
         </CollapsibleContainer>
       </div>
     );
