@@ -27,23 +27,19 @@ function FilterButton({ active, children, onClick, filter }) {
   );
 }
 
-function isFiltered(filterType) {
-  return (course) => {
-    switch (filterType) {
-      case FilterType.COMPLETED:
-        return course.completed;
-      case FilterType.UNCOMPLETED:
-        return !course.completed;
-      default:
-        return true;
-    }
-  };
+function isFiltered(filterType, { completed }) {
+  switch (filterType) {
+    case FilterType.COMPLETED:
+      return completed;
+    case FilterType.UNCOMPLETED:
+      return !completed;
+    default:
+      return true;
+  }
 }
 
-function matchesInput(input) {
-  return ({ title }) => {
-    return title.toLowerCase().includes(input.toLowerCase());
-  }
+function matchesInput(input, { title }) {
+  return title.toLowerCase().includes(input.toLowerCase());
 }
 
 function Note() {
@@ -90,6 +86,7 @@ export default class Courses extends PureComponent {
     axios.post('http://localhost:9200/study_sessions/study_session/', study_session)
       .then(({ data }) => {
         console.log('Successfully started studying.', data);
+        location.reload(); // eslint-disable-line no-restricted-globals
       })
       .catch((error) => {
         console.error('There was an error: ', error);
@@ -164,8 +161,10 @@ export default class Courses extends PureComponent {
             </thead>
             <tbody>
               {courses
-                .filter(isFiltered(filterType))
-                .filter(matchesInput(input))
+                .filter((course) =>
+                  isFiltered(filterType, course) &&
+                  matchesInput(input, course)
+                )
                 .sort((a, b) => a.position - b.position)
                 .map((course) => (
                   <tr key={course.id}>

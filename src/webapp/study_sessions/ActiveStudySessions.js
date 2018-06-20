@@ -50,12 +50,7 @@ export default class ActiveStudySessions extends PureComponent {
 
     endStudySession(sessionToStop, endTime, difficulty)
       .then(() => {
-
-        this.setState({
-          showEndStudyingModal: false,
-          sessionToStop: null,
-          endTime: null
-        });
+        location.reload(); // eslint-disable-line no-restricted-globals
       })
       .catch((error) => {
         console.error(error);
