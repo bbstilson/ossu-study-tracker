@@ -12,7 +12,7 @@
         "time_start": {
           "type": "date"
         },
-        "time_end": {
+        "duration": {
           "type": "date"
         },
         "session_complete": {

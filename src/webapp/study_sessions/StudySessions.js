@@ -2,18 +2,13 @@ import CollapsibleContainer from '../util/CollapsibleContainer.js';
 
 import { getStudySessionsWithCourseData } from '../utils/elasticsearch';
 
-import format from 'date-fns/format';
-import differenceInMinutes from 'date-fns/difference_in_minutes'
 import React, { PureComponent } from 'react';
 
-function formatDuration(session) {
-  const tookMinutes = differenceInMinutes(
-    format(+session.time_end),
-    format(+session.time_start)
-  );
+function formatDuration({ duration }) {
+  const durationMinutes = duration / 1000 / 60;
 
-  const remMinutes = tookMinutes % 60;
-  const hours = Math.floor(tookMinutes / 60);
+  const remMinutes = Math.floor(durationMinutes % 60);
+  const hours = Math.floor(durationMinutes / 60);
 
   return hours
     ? `${hours}h ${remMinutes}m`

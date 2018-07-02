@@ -5,7 +5,7 @@ const StudySession = Immutable.Record({
   course_id: null, // ref -> Course.id
   session_complete: null, // boolean
   time_start: null, // Date
-  time_end: null, // Date
+  duration: null, // milliseconds
   difficulty: null, // 1 - 5
 });
 

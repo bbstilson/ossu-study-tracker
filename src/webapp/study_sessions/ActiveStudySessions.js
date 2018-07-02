@@ -18,7 +18,7 @@ export default class ActiveStudySessions extends PureComponent {
     this.fetchActiveSessions();
   }
 
-  fetchActiveSessions = () => {
+  fetchActiveSessions = async () => {
     const active_sessions_query = {
       query: {
         term: {
@@ -27,14 +27,15 @@ export default class ActiveStudySessions extends PureComponent {
       }
     };
 
-    getStudySessionsWithCourseData(active_sessions_query)
-      .then((activeSessions) => {
-        this.setState({ activeSessions, loading: false });
-      })
-      .catch((error) => {
-        console.error(error);
-        this.setState({ error, loading: false });
+    try {
+
+      this.setState({
+        loading: false,
+        activeSessions: await getStudySessionsWithCourseData(active_sessions_query)
       });
+    } catch(error) {
+      this.setState({ error, loading: false });
+    }
   }
 
   displayEndSessionModal = (session) => {

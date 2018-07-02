@@ -74,12 +74,12 @@ export default class Courses extends PureComponent {
   }
 
   handleStartStudying = (courseId) => {
-    const now = new Date().getTime().toString();
+    const now = new Date().getTime();
+
     const study_session = {
       course_id: courseId,
       session_complete: false,
       time_start: now,
-      time_end: now,
       difficulty: 0
     };
 

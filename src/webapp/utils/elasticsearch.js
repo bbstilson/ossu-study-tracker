@@ -9,50 +9,37 @@ export function getHits(resp) {
   return resp.data.hits.hits;
 }
 
+export function getDocs(resp) {
+  return resp.data.docs;
+}
+
 /**
  * @param {Object} query - The query to post to the study_sessions index.
  * @returns {Object[]} - Array({ session, course })
  */
-export function getStudySessionsWithCourseData(query) {
-  return axios.post(`${ES_HOST}/study_sessions/_search`, query)
-    .then(getHits)
-    .then((activeSessions) => {
-      const docs = activeSessions.map((session) => ({
-        _type: 'course',
-        _id: session._source.course_id
-      }));
+export async function getStudySessionsWithCourseData(query) {
+  const allStudySessions = await axios.post(`${ES_HOST}/study_sessions/_search`, query).then(getHits);
 
-      if (docs.length) {
-        return axios.post(`${ES_HOST}/courses/_mget`, { docs })
-          .then(({ data }) => {
-            return {
-              courses: data.docs,
-              activeSessions
-            };
-          });
-      } else {
-        return Promise.resolve({
-          activeSessions: [],
-          courses: []
-        })
-      }
+  const courseData = await axios.post(`${ES_HOST}/courses/_mget`, {
+    docs: allStudySessions.map((session) => ({
+      _type: 'course',
+      _id: session._source.course_id
+    }))
+  }).then(getDocs);
 
-    })
-    .then(({ activeSessions, courses }) => {
-      return activeSessions
-        .map((session, idx) => [session, courses[idx]])
-        .map(([ session, course ]) => ({
-          session: StudySessionModel.fromJS(session),
-          course: CourseModel.fromJS(course)
-        }));
-    });
+  return allStudySessions
+    .map((session, idx) => [session, courseData[idx]])
+    .map(([ session, course ]) => ({
+      session: StudySessionModel.fromJS(session),
+      course: CourseModel.fromJS(course)
+    }));
 }
 
-export function endStudySession(session, time_end, difficulty = 1) {
+export async function endStudySession(session, time_end, difficulty = 1) {
   const update_request = {
     doc: {
       difficulty,
-      time_end,
+      duration: time_end - session.time_start,
       session_complete: true,
     }
   };
@@ -60,12 +47,12 @@ export function endStudySession(session, time_end, difficulty = 1) {
   return axios.post(`${ES_HOST}/study_sessions/study_session/${session.id}/_update`, update_request);
 }
 
-export function getCourses(query) {
+export async function getCourses(query) {
   return axios.post(`${ES_HOST}/courses/_search`, query)
     .then(getHits);
 }
 
-export function setCourseCompleted(course, difficulty = 1) {
+export async function setCourseCompleted(course, difficulty = 1) {
   const update_request = {
     doc: {
       difficulty,
@@ -78,6 +65,6 @@ export function setCourseCompleted(course, difficulty = 1) {
 }
 
 
-export function addCourse(courseData) {
+export async function addCourse(courseData) {
   return axios.post(`${ES_HOST}/courses/course/`, courseData);
 }
