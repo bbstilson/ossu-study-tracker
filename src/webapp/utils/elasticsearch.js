@@ -5,12 +5,22 @@ import axios from 'axios';
 
 export const ES_HOST = 'http://localhost:9200';
 
-export function getHits(resp) {
-  return resp.data.hits.hits;
+export function getHits(response) {
+  return response.data.hits.hits;
 }
 
-export function getDocs(resp) {
-  return resp.data.docs;
+export function getDocs(response) {
+  return response.data.docs;
+}
+
+export function getAggregations(response) {
+  return response.data.aggregations;
+}
+
+export function getCoursesData(courseIds) {
+  return axios.post(`${ES_HOST}/courses/_mget`, {
+    docs: courseIds.map((_id) => ({ _id, _type: 'course' }))
+  }).then(getDocs);
 }
 
 /**
@@ -20,12 +30,8 @@ export function getDocs(resp) {
 export async function getStudySessionsWithCourseData(query) {
   const allStudySessions = await axios.post(`${ES_HOST}/study_sessions/_search`, query).then(getHits);
 
-  const courseData = await axios.post(`${ES_HOST}/courses/_mget`, {
-    docs: allStudySessions.map((session) => ({
-      _type: 'course',
-      _id: session._source.course_id
-    }))
-  }).then(getDocs);
+  const courseIds = allStudySessions.map(({ _source }) => _source.course_id);
+  const courseData = await getCoursesData(courseIds);
 
   return allStudySessions
     .map((session, idx) => [session, courseData[idx]])
@@ -67,4 +73,30 @@ export async function setCourseCompleted(course, difficulty = 1) {
 
 export async function addCourse(courseData) {
   return axios.post(`${ES_HOST}/courses/course/`, courseData);
+}
+
+
+export async function getStudySessionsDurations() {
+  const aggregationQuery = {
+    "aggs": {
+      "courses": {
+        "terms": {
+          "field": "course_id"
+        },
+        "aggs": {
+          "total_duration": {
+            "sum": {
+              "field": "duration"
+            }
+          }
+        }
+      }
+    }
+  };
+
+  const { courses: { buckets: sessionsData }} = await axios
+    .post(`${ES_HOST}/study_sessions/_search`, aggregationQuery)
+    .then(getAggregations);
+
+  return sessionsData;
 }
