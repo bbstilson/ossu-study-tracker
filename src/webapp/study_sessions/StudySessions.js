@@ -5,7 +5,7 @@ import StudySessionDurations from '../vis/StudySessionDurations.js';
 
 import type { StudySessionAndCourse } from '../types/generic.js';
 
-import { getStudySessionsWithCourseData, foo } from '../utils/elasticsearch.js';
+import { getStudySessionsWithCourseData } from '../utils/elasticsearch.js';
 import { formatDuration } from '../utils/format.js';
 
 import React, { Component } from 'react';
@@ -23,7 +23,6 @@ export default class StudySessions extends Component<StudySessionsProps, StudySe
   }
 
   async componentWillMount() {
-    console.log(foo());
     const complete_sessions_query = {
       query: {
         term: {

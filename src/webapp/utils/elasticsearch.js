@@ -33,14 +33,9 @@ export function getCoursesData(courseIds: List<number>): EsDocs {
 }
 
 /**
- * @param {Object} query - The query to post to the study_sessions index.
+ * @param {Query} query - The query to post to the study_sessions index.
  * @returns {Object[]} - Array({ session, course })
  */
-
-export async function foo() {
-  return await axios('someurl');
-}
-
 export async function getStudySessionsWithCourseData(
   query: EsQuery
 ): Promise<StudySessionAndCourse[]> {
