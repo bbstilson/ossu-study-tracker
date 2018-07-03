@@ -1,17 +1,29 @@
+// @flow
+
 import CollapsibleContainer from '../util/CollapsibleContainer.js';
 import StudySessionDurations from '../vis/StudySessionDurations.js';
 
-import { getStudySessionsWithCourseData } from '../utils/elasticsearch.js';
+import type { StudySessionAndCourse } from '../types/generic.js';
+
+import { getStudySessionsWithCourseData, foo } from '../utils/elasticsearch.js';
 import { formatDuration } from '../utils/format.js';
 
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 
-export default class StudySessions extends PureComponent {
+type StudySessionsProps = {}
+type StudySessionsState = {
+  sessions: StudySessionAndCourse[],
+  error: Object
+}
+
+export default class StudySessions extends Component<StudySessionsProps, StudySessionsState> {
   state = {
-    sessions: []
+    sessions: [],
+    error: {}
   }
 
   async componentWillMount() {
+    console.log(foo());
     const complete_sessions_query = {
       query: {
         term: {

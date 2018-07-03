@@ -1,3 +1,5 @@
+// @flow
+
 import CollapsibleContainer from '../util/CollapsibleContainer.js';
 
 import CourseModel from '../models/course';
@@ -10,13 +12,27 @@ import React, { PureComponent } from 'react';
 
 import './Courses.css';
 
-const FilterType = {
+import type { Node } from 'react';
+import type { Course } from '../types/course.js';
+
+const Filter = {
   ALL: 'ALL',
   COMPLETED: 'COMPLETED',
   UNCOMPLETED: 'UNCOMPLETED'
 };
 
-function FilterButton({ active, children, onClick, filter }) {
+type FilterType = $Keys<typeof Filter>
+
+type FilterButtonProps = {
+  active: boolean,
+  children: Node,
+  onClick: (filter: FilterType) => void,
+  filter: FilterType
+}
+
+function FilterButton(props: FilterButtonProps) {
+  const { active, children, onClick, filter } = props;
+
   return (
     <span
       className={classnames('filter-button', { 'filter-active': active })}
@@ -27,18 +43,18 @@ function FilterButton({ active, children, onClick, filter }) {
   );
 }
 
-function isFiltered(filterType, { completed }) {
+function isFiltered(filterType: FilterType, { completed }): boolean {
   switch (filterType) {
-    case FilterType.COMPLETED:
+    case Filter.COMPLETED:
       return completed;
-    case FilterType.UNCOMPLETED:
+    case Filter.UNCOMPLETED:
       return !completed;
     default:
       return true;
   }
 }
 
-function matchesInput(input, { title }) {
+function matchesInput(input: string, { title }) {
   return title.toLowerCase().includes(input.toLowerCase());
 }
 
@@ -48,15 +64,23 @@ function Note() {
   );
 }
 
-export default class Courses extends PureComponent {
+type CoursesProps = {}
+type CoursesState = {
+  courses: Course[],
+  error: Object | null,
+  filterType: FilterType,
+  input: string
+}
+
+export default class Courses extends PureComponent<CoursesProps,CoursesState> {
   state = {
     courses: [],
     error: null,
-    filterType: FilterType.ALL,
+    filterType: Filter.ALL,
     input: ''
   }
 
-  componentDidMount() {
+  componentWillMount() {
     const match_all_query = {
       query: { match_all: {}},
       size: 100
@@ -73,7 +97,7 @@ export default class Courses extends PureComponent {
       });
   }
 
-  handleStartStudying = (courseId) => {
+  handleStartStudying = (courseId: string) => {
     const now = new Date().getTime();
 
     const study_session = {
@@ -94,7 +118,7 @@ export default class Courses extends PureComponent {
       })
   }
 
-  handleCourseComplete = (course) => {
+  handleCourseComplete = (course: Course) => {
     setCourseCompleted(course)
       .then(() => {
         console.log('success!');
@@ -105,7 +129,7 @@ export default class Courses extends PureComponent {
       });
   }
 
-  handleFilter = (filterType) => {
+  handleFilter = (filterType: FilterType) => {
     this.setState({ filterType });
   }
 
@@ -126,22 +150,22 @@ export default class Courses extends PureComponent {
           </div>
           <div className="input">
             <FilterButton
-              active={filterType === FilterType.ALL}
-              filter={FilterType.ALL}
+              active={filterType === Filter.ALL}
+              filter={Filter.ALL}
               onClick={this.handleFilter}
             >
               All
             </FilterButton>
             <FilterButton
-              active={filterType === FilterType.COMPLETED}
-              filter={FilterType.COMPLETED}
+              active={filterType === Filter.COMPLETED}
+              filter={Filter.COMPLETED}
               onClick={this.handleFilter}
             >
               Completed
             </FilterButton>
             <FilterButton
-              active={filterType === FilterType.UNCOMPLETED}
-              filter={FilterType.UNCOMPLETED}
+              active={filterType === Filter.UNCOMPLETED}
+              filter={Filter.UNCOMPLETED}
               onClick={this.handleFilter}
             >
               Uncompleted

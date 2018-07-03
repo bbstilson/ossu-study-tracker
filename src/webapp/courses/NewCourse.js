@@ -1,19 +1,28 @@
+// @flow
+
 import { addCourse } from '../utils/elasticsearch';
 
 import React, { Component } from 'react';
 
-export default class NewCourse extends Component {
+type NewCourseProps = {}
+type NewCourseState = {
+  courseName: string,
+  courseLink: string
+}
+
+export default class NewCourse extends Component<NewCourseProps, NewCourseState> {
   state = {
     courseName: '',
     courseLink: ''
   }
 
-  handleSubmit = (e) => {
+  handleSubmit = (e: SyntheticEvent<EventTarget>) => {
     e.preventDefault();
 
     const { courseName, courseLink } = this.state;
 
     addCourse({
+      id: '-1',
       position: -1, // insert at the beginning
       title: courseName,
       duration: 'N/A',
@@ -32,13 +41,13 @@ export default class NewCourse extends Component {
     })
   }
 
-  handleCourseNameChange = (e) => {
+  handleCourseNameChange = (e: SyntheticInputEvent<EventTarget>) => {
     this.setState({
       courseName: e.target.value
     })
   }
 
-  handleCourseLinkChange = (e) => {
+  handleCourseLinkChange = (e: SyntheticInputEvent<EventTarget>) => {
     this.setState({
       courseLink: e.target.value
     });

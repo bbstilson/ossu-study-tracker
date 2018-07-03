@@ -1,20 +1,36 @@
+// @flow
+
 import EndSessionModal from './EndSessionModal.js';
 
 import { getStudySessionsWithCourseData, endStudySession } from '../utils/elasticsearch';
 
 import format from 'date-fns/format';
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 
-export default class ActiveStudySessions extends PureComponent {
+import type { StudySessionAndCourse } from '../types/generic.js';
+import type { StudySession } from '../types/studySession.js';
+
+type ActiveStudySessionsProps = {}
+type ActiveStudySessionsState = {
+  activeSessions: StudySessionAndCourse[],
+  error: Object | null,
+  showEndStudyingModal: boolean,
+  sessionToStop: StudySession | null,
+  loading: boolean,
+  endTime: number
+}
+
+export default class ActiveStudySessions extends Component<ActiveStudySessionsProps, ActiveStudySessionsState> {
   state = {
     activeSessions: [],
     error: null,
     showEndStudyingModal: false,
-    sessionIdToStop: null,
-    loading: true
+    sessionToStop: null,
+    loading: true,
+    endTime: 0
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.fetchActiveSessions();
   }
 
@@ -38,7 +54,7 @@ export default class ActiveStudySessions extends PureComponent {
     }
   }
 
-  displayEndSessionModal = (session) => {
+  displayEndSessionModal = (session: StudySession) => {
     this.setState({
       showEndStudyingModal: true,
       sessionToStop: session,
@@ -46,8 +62,15 @@ export default class ActiveStudySessions extends PureComponent {
     });
   }
 
-  handleEndStudying = (difficulty) => {
+  handleEndStudying = (difficulty: number) => {
     const { endTime, sessionToStop } = this.state;
+
+    if (!sessionToStop) {
+      const message = 'sessionToStop was null';
+      console.error(message);
+      this.setState({ error: { message }});
+      return;
+    }
 
     endStudySession(sessionToStop, endTime, difficulty)
       .then(() => {
@@ -63,7 +86,7 @@ export default class ActiveStudySessions extends PureComponent {
     this.setState({
       showEndStudyingModal: false,
       sessionToStop: null,
-      endTime: null
+      endTime: 0
     });
   }
 

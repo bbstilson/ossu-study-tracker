@@ -1,9 +1,20 @@
+// @flow
+
 import PropTypes from 'prop-types';
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 
 import './CollapsibleContainer.css'
 
-export default class CollapsibleContainer extends PureComponent {
+import type { Node } from 'react';
+
+type CollapsibleContainerProps = {
+  children: Node | Node[]
+}
+type CollapsibleContainerState = {
+  collapsed: boolean
+}
+
+export default class CollapsibleContainer extends Component<CollapsibleContainerProps, CollapsibleContainerState> {
   state = {
     collapsed: true
   }
