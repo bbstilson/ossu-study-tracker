@@ -1,26 +1,17 @@
 import CollapsibleContainer from '../util/CollapsibleContainer.js';
+import StudySessionDurations from '../vis/StudySessionDurations.js';
 
-import { getStudySessionsWithCourseData } from '../utils/elasticsearch';
+import { getStudySessionsWithCourseData } from '../utils/elasticsearch.js';
+import { formatDuration } from '../utils/format.js';
 
 import React, { PureComponent } from 'react';
-
-function formatDuration({ duration }) {
-  const durationMinutes = duration / 1000 / 60;
-
-  const remMinutes = Math.floor(durationMinutes % 60);
-  const hours = Math.floor(durationMinutes / 60);
-
-  return hours
-    ? `${hours}h ${remMinutes}m`
-    : `${remMinutes}m`;
-}
 
 export default class StudySessions extends PureComponent {
   state = {
     sessions: []
   }
 
-  componentDidMount() {
+  async componentWillMount() {
     const complete_sessions_query = {
       query: {
         term: {
@@ -30,14 +21,14 @@ export default class StudySessions extends PureComponent {
       size: 100
     };
 
-    getStudySessionsWithCourseData(complete_sessions_query)
-      .then((sessions) => {
-        this.setState({ sessions });
-      })
-      .catch((error) => {
-        console.error(error);
-        this.setState({ error });
+    try {
+      this.setState({
+        sessions: await getStudySessionsWithCourseData(complete_sessions_query)
       });
+    } catch(error) {
+      console.error(error);
+      this.setState({ error });
+    }
   }
   render() {
     const { sessions } = this.state;
@@ -45,6 +36,7 @@ export default class StudySessions extends PureComponent {
     return (
       <div>
         <h1>All Study Sessions</h1>
+        <StudySessionDurations />
         <CollapsibleContainer>
           <table>
             <thead>
@@ -58,7 +50,7 @@ export default class StudySessions extends PureComponent {
               {sessions.map(({ session, course }) => (
                 <tr key={session.id}>
                   <td><a href={course.link}>{course.title}</a></td>
-                  <td>{formatDuration(session)}</td>
+                  <td>{formatDuration(session.duration)}</td>
                   <td>{session.difficulty}</td>
                 </tr>
               ))}
