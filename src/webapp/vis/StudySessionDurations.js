@@ -1,32 +1,32 @@
+// @flow
+
 import { getCoursesData, getStudySessionsDurations } from '../utils/elasticsearch.js';
 import { formatDuration } from '../utils/format.js';
+import { toImmutableMap } from '../utils/helpers.js';
 
-import { List as IList, Map as IMap } from 'immutable';
+import type { StudySessionDuration } from '../types/studySession.js';
+
+import type { IndexedSeq } from 'immutable';
+import * as Immutable from 'immutable';
 import React, { Fragment, Component } from 'react';
 
-/**
- * Takes a key and an optional value to convert a list of objects to an object
- * of { key: object[value] || object }.
- * Expects an Immutable.Map as the accumulator.
- * @param {string} key - The key from each object to use as the primary key.
- * @param {string?} value - The optional value to grab from the object.
- * @returns {function} - A thunk which takes the accumulator and each object and
- * applies the specified transformation.
- */
-const reducer = (key, value) => (map, x) => map.set(x[key], value ? x[value] : x);
+type StudySessionDurationProps = {}
+type StudySessionDurationsState = {
+  sessions: IndexedSeq<StudySessionDuration>
+}
 
-export default class StudySessionDurations extends Component {
+export default class StudySessionDurations extends Component<StudySessionDurationProps, StudySessionDurationsState> {
   state = {
-    sessions: []
+    sessions: Immutable.Seq.Indexed()
   }
 
   async componentWillMount() {
-    const sessionDurations = IList(await getStudySessionsDurations());
-    const courseDataMap = IList(await getCoursesData(sessionDurations.map(({ key }) => key)))
-      .reduce(reducer('_id', '_source'), IMap());
+    const sessionDurations = Immutable.List(await getStudySessionsDurations());
+    const courseDataMap = Immutable.List(await getCoursesData(sessionDurations.map(({ key }) => key)))
+      .reduce(toImmutableMap('_id', '_source'), Immutable.Map());
 
     const sessions = sessionDurations
-      .reduce(reducer('key', 'total_duration'), IMap())
+      .reduce(toImmutableMap('key', 'total_duration'), Immutable.Map())
       .map((durationData, courseId) => ({
         ...durationData,
         id: courseId,

@@ -24,3 +24,9 @@ When ES is up and running, open another window and start the app server:
 ```
 yarn start
 ```
+
+Run flow compiler:
+
+```
+yarn flow
+```

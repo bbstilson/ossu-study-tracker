@@ -1,11 +1,21 @@
+// @flow
+
 import classnames from 'classnames';
 import format from 'date-fns/format';
 import PropTypes from 'prop-types';
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 
 import './EndSessionModal.css';
 
-function Difficulty({ num, onClick, selected }) {
+type DifficultyProps = {
+  num: number,
+  onClick: (num: number) => void,
+  selected: number | null
+}
+
+function Difficulty(props: DifficultyProps) {
+  const { num, onClick, selected } = props;
+
   return (
     <span
       className={classnames('difficulty', { active: num === selected })}
@@ -16,7 +26,16 @@ function Difficulty({ num, onClick, selected }) {
   )
 }
 
-export default class EndSessionModal extends PureComponent {
+type EndSessionModalProps = {
+  onConfirm: (selected: number) => void,
+  onDeny: () => void,
+  endTime: number
+}
+type EndSessionModalState = {
+  selected: number | null
+}
+
+export default class EndSessionModal extends Component<EndSessionModalProps, EndSessionModalState> {
   state = {
     selected: null
   }
@@ -27,7 +46,7 @@ export default class EndSessionModal extends PureComponent {
     endTime: PropTypes.number.isRequired
   }
 
-  handleSelection = (selected) => {
+  handleSelection = (selected: number) => {
     this.setState({ selected });
   }
 

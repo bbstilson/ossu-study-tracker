@@ -1,4 +1,6 @@
-export function formatDuration(duration) {
+// @flow
+
+export function formatDuration(duration: number): string {
   const durationMinutes = duration / 1000 / 60;
 
   const remMinutes = Math.floor(durationMinutes % 60);
