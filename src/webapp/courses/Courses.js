@@ -21,10 +21,7 @@ const Filter = {
   UNCOMPLETED: 'UNCOMPLETED'
 };
 
-type FilterType =
-  | 'ALL'
-  | 'COMPLETED'
-  | 'UNCOMPLETED'
+type FilterType = $Keys<typeof Filter>
 
 type FilterButtonProps = {
   active: boolean,
